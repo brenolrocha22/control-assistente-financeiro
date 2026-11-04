@@ -11,6 +11,12 @@ Prints que comprovam cada etapa. Antes de salvar uma imagem aqui, confira que **
 | [app-03-tabela-transacoes.png](app-03-tabela-transacoes.png) | 5 transações mais recentes, com a pendente identificada e a nota sobre o sinal da Plaid |
 | [app-04-gasto-alimentacao.png](app-04-gasto-alimentacao.png) | "Quanto gastei com alimentação?": US$ 1.016,33 em 4 confirmadas, com a pendente fora do total |
 
+## Pluggy Docs (P01–P02)
+
+| Arquivo | O que mostra |
+| --- | --- |
+| [pluggy-p01-p02.md](pluggy-p01-p02.md) | 4 endpoints do grupo Transaction (com o descontinuado marcado) e Item × conta × transação explicados, com fontes |
+
 ## Plaid Sandbox (P05–P07)
 
 | Arquivo | O que mostra |
