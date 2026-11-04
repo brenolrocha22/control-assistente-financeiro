@@ -4,7 +4,8 @@
 >
 > ⚠️ **Todos os dados são fictícios.** A Plaid Sandbox é só um laboratório: ela não representa o Open Finance brasileiro, que em produção exige consentimento, segurança e credenciais próprias.
 
-**App publicado:** _adicionar o link depois do deploy_
+**App publicado:** <https://brenolrocha22.github.io/control-assistente-financeiro/>  
+**Repositório:** <https://github.com/brenolrocha22/control-assistente-financeiro>
 **Stack:** React 18 + Vite + TypeScript, sem backend e sem credenciais no navegador
 
 ---
