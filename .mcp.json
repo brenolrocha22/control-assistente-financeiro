@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "pluggy": {
+      "type": "http",
+      "url": "https://mcp.pluggy.ai/mcp"
+    },
+    "plaid": {
+      "type": "stdio",
+      "command": "C:\\Users\\Breno\\.local\\bin\\mcp-server-plaid.exe",
+      "args": [],
+      "env": {
+        "PLAID_CLIENT_ID": "${PLAID_CLIENT_ID}",
+        "PLAID_SECRET": "${PLAID_SECRET}"
+      }
+    }
+  }
+}
