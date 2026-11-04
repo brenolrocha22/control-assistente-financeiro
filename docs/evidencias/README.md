@@ -18,7 +18,7 @@ Prints que comprovam cada etapa. Antes de salvar uma imagem aqui, confira que **
 
 ## Chat no Lovable (parte 4)
 
-Publicado em <https://screenshot-to-pixel-perfect-1667.lovable.app>. Só a Etapa 1: nenhuma chave da Plaid foi fornecida ao Lovable.
+Publicado em <https://control-assistente.lovable.app>. Só a Etapa 1: nenhuma chave da Plaid foi fornecida ao Lovable. Os prints foram feitos antes da troca de endereço, por isso a barra do navegador mostra o endereço provisório (`screenshot-to-pixel-perfect-1667.lovable.app`). O app é o mesmo.
 
 | Arquivo | O que mostra |
 | --- | --- |

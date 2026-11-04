@@ -4,7 +4,7 @@
 >
 > ⚠️ **Todos os dados são fictícios.** A Plaid Sandbox é só um laboratório: ela não representa o Open Finance brasileiro, que em produção exige consentimento, segurança e credenciais próprias.
 
-**Chat no Lovable (entrega da parte 4):** <https://screenshot-to-pixel-perfect-1667.lovable.app>  
+**Chat no Lovable (entrega da parte 4):** <https://control-assistente.lovable.app>  
 **Versão com testes automatizados (GitHub Pages):** <https://brenolrocha22.github.io/control-assistente-financeiro/>  
 **Repositório:** <https://github.com/brenolrocha22/control-assistente-financeiro>  
 **Stack da versão do repositório:** React 18 + Vite + TypeScript, sem backend e sem credenciais no navegador
@@ -80,7 +80,7 @@ A base foi a especificação SDD das páginas 25 a 28 do guia, com a marca **Con
 
 ### No Lovable (como no guia)
 
-A especificação foi enviada primeiro no **modo chat**, para o Lovable tirar dúvidas, e depois construída e publicada: **<https://screenshot-to-pixel-perfect-1667.lovable.app>**.
+A especificação foi enviada primeiro no **modo chat**, para o Lovable tirar dúvidas, e depois construída e publicada: **<https://control-assistente.lovable.app>**.
 
 - **Só a Etapa 1:** o Lovable pediu as chaves da Plaid para avançar à Etapa 2, e elas **não foram fornecidas**. O app roda só com a amostra local, mostra "Modo local, sem conexão bancária" e se declara somente leitura.
 - **Mesmos números da versão do repositório:** dinheiro disponível US$ 300,00, dívida nos cartões US$ 5.430,00 e limite US$ 4.980,00.
