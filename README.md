@@ -4,9 +4,10 @@
 >
 > ⚠️ **Todos os dados são fictícios.** A Plaid Sandbox é só um laboratório: ela não representa o Open Finance brasileiro, que em produção exige consentimento, segurança e credenciais próprias.
 
-**App publicado:** <https://brenolrocha22.github.io/control-assistente-financeiro/>  
-**Repositório:** <https://github.com/brenolrocha22/control-assistente-financeiro>
-**Stack:** React 18 + Vite + TypeScript, sem backend e sem credenciais no navegador
+**Chat no Lovable (entrega da parte 4):** <https://screenshot-to-pixel-perfect-1667.lovable.app>  
+**Versão com testes automatizados (GitHub Pages):** <https://brenolrocha22.github.io/control-assistente-financeiro/>  
+**Repositório:** <https://github.com/brenolrocha22/control-assistente-financeiro>  
+**Stack da versão do repositório:** React 18 + Vite + TypeScript, sem backend e sem credenciais no navegador
 
 ---
 
@@ -77,7 +78,21 @@ Os prompts usados nas duas práticas (P01–P09) estão em **[docs/prompts.md](d
 
 A base foi a especificação SDD das páginas 25 a 28 do guia, com a marca **Control** no lugar do nome desfocado: **[docs/lovable-spec.md](docs/lovable-spec.md)**. Ela pode ser colada no Lovable como um único pedido.
 
-Neste repositório, a Etapa 1 foi implementada com o **Claude Code**, seguindo a mesma especificação. O que foi ajustado ou decidido durante a construção:
+### No Lovable (como no guia)
+
+A especificação foi enviada primeiro no **modo chat**, para o Lovable tirar dúvidas, e depois construída e publicada: **<https://screenshot-to-pixel-perfect-1667.lovable.app>**.
+
+- **Só a Etapa 1:** o Lovable pediu as chaves da Plaid para avançar à Etapa 2, e elas **não foram fornecidas**. O app roda só com a amostra local, mostra "Modo local, sem conexão bancária" e se declara somente leitura.
+- **Mesmos números da versão do repositório:** dinheiro disponível US$ 300,00, dívida nos cartões US$ 5.430,00 e limite US$ 4.980,00.
+- **Respostas:** a IA do Lovable interpreta a pergunta, e os números são calculados por código, como a especificação exige.
+
+| Início | Saldos | Últimas transações |
+| --- | --- | --- |
+| ![Saudação e sugestões no Lovable](docs/evidencias/lovable-01-inicio.png) | ![Dinheiro, dívida e limite separados](docs/evidencias/lovable-02-saldos.png) | ![5 transações mais recentes com a pendente](docs/evidencias/lovable-03-transacoes.png) |
+
+### No repositório (Claude Code)
+
+A mesma especificação também foi implementada com o **Claude Code**, com testes automatizados que conferem cada soma. O que foi ajustado ou decidido durante a construção:
 
 - **Respostas calculadas, não geradas:** um roteador de intenções em português chama funções que filtram e somam os registros. Assim, nenhum número é inventado, e perguntas fora do escopo recebem uma explicação com sugestões válidas.
 - **Honestidade do modo:** uma faixa fixa mostra "Modo demonstração · dados locais · sem integração ativa com APIs". Nada indica "Conectado".

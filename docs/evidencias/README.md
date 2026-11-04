@@ -16,6 +16,16 @@ Prints que comprovam cada etapa. Antes de salvar uma imagem aqui, confira que **
 | [app-06-resumo-consumo.png](app-06-resumo-consumo.png) | Resumo com **consumo** (US$ 2.202,29) separado de **dívidas pagas e transferências** (US$ 3.103,50) |
 | [app-07-termo-desconhecido.png](app-07-termo-desconhecido.png) | "Quanto gastei com mercado?": avisa que o termo não existe e lista categorias e estabelecimentos válidos |
 
+## Chat no Lovable (parte 4)
+
+Publicado em <https://screenshot-to-pixel-perfect-1667.lovable.app>. Só a Etapa 1: nenhuma chave da Plaid foi fornecida ao Lovable.
+
+| Arquivo | O que mostra |
+| --- | --- |
+| [lovable-01-inicio.png](lovable-01-inicio.png) | Saudação, sugestões e "Modo local, sem conexão bancária" |
+| [lovable-02-saldos.png](lovable-02-saldos.png) | Dinheiro (US$ 300,00), dívida (US$ 5.430,00) e limite (US$ 4.980,00) separados |
+| [lovable-03-transacoes.png](lovable-03-transacoes.png) | 5 transações mais recentes, com a pendente marcada e a nota "números calculados por código" |
+
 ## Servidores MCP
 
 | Arquivo | O que mostra |
