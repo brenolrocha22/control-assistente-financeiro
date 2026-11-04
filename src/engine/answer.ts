@@ -1,4 +1,4 @@
-import { categoryLabel, date, money, round2 } from "./format";
+import { categoryLabel, count, date, money, round2 } from "./format";
 import type { Account, Answer, Block, Dataset, Transaction } from "./types";
 
 export const SUGGESTIONS = [
@@ -254,7 +254,7 @@ function balances(ds: Dataset, f: Filters): Answer {
     cards.push({
       label: "Limite disponível",
       value: limitAccounts.length ? money(limit) : "Não informado",
-      hint: missingLimit ? `${missingLimit} cartão(ões) sem limite informado` : "Crédito, não é dinheiro depositado",
+      hint: missingLimit ? `${count(missingLimit, "cartão", "cartões")} sem limite informado` : "Crédito, não é dinheiro depositado",
       tone: "limit",
     });
   }
@@ -289,7 +289,7 @@ function listTransactions(ds: Dataset, f: Filters): Answer {
   const hasFilter = Boolean(f.account || f.period);
   const shown = hasFilter ? filtered.slice(0, 20) : filtered.slice(0, 5);
   const intro = hasFilter
-    ? `Encontrei ${filtered.length} transação(ões)${filtered.length > shown.length ? `; mostrando as ${shown.length} mais recentes` : ""}:`
+    ? `Encontrei ${count(filtered.length, "transação", "transações")}${filtered.length > shown.length ? `; mostrando as ${shown.length} mais recentes` : ""}:`
     : "Estas são as 5 transações mais recentes:";
   return {
     intent: "transactions",
@@ -312,16 +312,16 @@ function spendIn(ds: Dataset, f: Filters, match: (t: Transaction) => boolean, la
   const received = money(Math.abs(sum(confirmedIn)));
   const blocks: Block[] = [];
   if (confirmedOut.length) {
-    blocks.push({ kind: "text", text: `Você gastou ${money(total)} com ${label} em ${confirmedOut.length} transação(ões) confirmada(s).` });
+    blocks.push({ kind: "text", text: `Você gastou ${money(total)} com ${label} em ${count(confirmedOut.length, "transação confirmada", "transações confirmadas")}.` });
     if (confirmedIn.length) blocks.push({ kind: "text", text: `Também houve ${received} de entradas nesse grupo.` });
   } else if (confirmedIn.length) {
-    blocks.push({ kind: "text", text: `Você recebeu ${received} em ${confirmedIn.length} entrada(s) confirmada(s) de ${label}.` });
+    blocks.push({ kind: "text", text: `Você recebeu ${received} em ${count(confirmedIn.length, "entrada confirmada", "entradas confirmadas")} de ${label}.` });
   } else {
     blocks.push({ kind: "text", text: `Não há movimentações confirmadas de ${label} nesse filtro.` });
   }
-  if (pending.length) blocks.push({ kind: "text", text: `Fora do total: ${pending.length} pendente(s) somando ${money(Math.abs(sum(pending)))}.` });
+  if (pending.length) blocks.push({ kind: "text", text: `Fora do total: ${count(pending.length, "pendente", "pendentes")} somando ${money(Math.abs(sum(pending)))}.` });
   blocks.push(txTable(ds, [...scoped].sort(byDateDesc)));
-  blocks.push({ kind: "note", text: `${scopeText(ds, f)} · ${scoped.length} registro(s) analisado(s). ${SIGN_NOTE}` });
+  blocks.push({ kind: "note", text: `${scopeText(ds, f)} · ${count(scoped.length, "registro analisado", "registros analisados")}. ${SIGN_NOTE}` });
   return { intent: "spend", blocks };
 }
 
@@ -352,7 +352,7 @@ function summary(ds: Dataset, f: Filters): Answer {
   if (top) blocks.push({ kind: "text", text: `A maior saída foi em ${top.label} (${top.display}).` });
   if (byCat.has("LOAN_PAYMENTS") || byCat.has("TRANSFER_OUT"))
     blocks.push({ kind: "text", text: "Pagamentos de dívidas e transferências entram nas saídas, mas não são consumo: podem ser só dinheiro mudando de lugar." });
-  blocks.push({ kind: "note", text: `${scopeText(ds, f)} · ${scoped.length} registro(s) (${confirmed.length} confirmados, ${pending.length} pendentes). ${SIGN_NOTE}` });
+  blocks.push({ kind: "note", text: `${scopeText(ds, f)} · ${count(scoped.length, "registro", "registros")} (${count(confirmed.length, "confirmado", "confirmados")}, ${count(pending.length, "pendente", "pendentes")}). ${SIGN_NOTE}` });
   return { intent: "summary", blocks };
 }
 

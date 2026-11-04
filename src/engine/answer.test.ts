@@ -27,8 +27,15 @@ describe("cálculos coerentes com a amostra", () => {
   it("soma alimentação só com confirmadas e deixa a pendente fora", () => {
     const t = text(answer("Quanto gastei com alimentação?", ds));
     expect(t).toContain("US$ 1.016,33");
-    expect(t).toContain("4 transação(ões)");
-    expect(t).toContain("1 pendente(s) somando US$ 4,33");
+    expect(t).toContain("4 transações confirmadas");
+    expect(t).toContain("1 pendente somando US$ 4,33");
+  });
+
+  it("concorda singular e plural com a quantidade", () => {
+    const t = text(answer("Quanto gastei com Uber?", ds));
+    expect(t).not.toMatch(/\((s|ões|es)\)/);
+    const all = SUGGESTIONS.map((q) => text(answer(q, ds))).join(" ");
+    expect(all).not.toMatch(/\((s|ões|es)\)/);
   });
 
   it("resume entradas e saídas com o sinal da Plaid", () => {

@@ -17,6 +17,11 @@ export function date(iso: string): string {
   return `${d}/${m}/${y}`;
 }
 
+/** "1 transação confirmada" / "4 transações confirmadas": concorda o texto com o número. */
+export function count(n: number, singular: string, plural: string): string {
+  return `${n} ${n === 1 ? singular : plural}`;
+}
+
 export function round2(n: number): number {
   return Math.round(n * 100) / 100;
 }

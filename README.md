@@ -108,7 +108,7 @@ Se o período pedido estiver fora da amostra, a resposta diz isso e não inventa
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm test         # 15 testes do motor de respostas
+npm test         # 16 testes do motor de respostas
 npm run build    # gera dist/ (site estático)
 ```
 
