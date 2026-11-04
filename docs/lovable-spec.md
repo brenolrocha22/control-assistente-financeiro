@@ -1,6 +1,12 @@
 # Especificação do chat (formato SDD, guia pp. 25–28)
 
-Versão adaptada da especificação do guia, com a marca **Control** no lugar do nome desfocado. Copie tudo abaixo da linha como **um único pedido** no Lovable. Mande primeiro no modo chat para tirar dúvidas e só depois peça a construção.
+Versão adaptada da especificação do guia, com a marca **Control** no lugar do nome desfocado. Copie tudo abaixo da linha como **um único pedido** no Lovable.
+
+**Como usar (guia, parte 4):**
+1. No Lovable, deixe o modo **Chat** ligado (não o de construção) e cole tudo abaixo da linha, precedido de: *"Antes de construir, leia a especificação e me diga as dúvidas e o que você pretende fazer. Não gere código ainda."*
+2. Responda às dúvidas. Depois mude para o modo de construção e peça: *"Pode construir a Etapa 1 conforme a especificação."*
+3. Confira a prévia com a tabela de **valores esperados** e rode o **P09** ([prompts.md](prompts.md)).
+4. Publique (**Publish**) e guarde o link.
 
 ---
 
@@ -47,7 +53,49 @@ Entregar primeiro uma interface funcional com dados locais fictícios, sem pedir
 | Plaid Credit Card | 410,00 de dívida | Não informado |
 | Plaid Business Credit Card | 5.020,00 de dívida | 4.980,00 de crédito |
 
-Não apresente a amostra como o conjunto completo consultado no ensaio. Se houver respostas simuladas, deixe isso claro.
+Data de referência da amostra: **25/09/2026** ("hoje", "ontem" e "últimos N dias" são calculados a partir dela). Use exatamente estas 17 transações (valor no padrão Plaid: positivo = saída, negativo = entrada):
+
+| Data | Descrição | Valor USD | Conta | Categoria | Situação |
+| --- | --- | ---: | --- | --- | --- |
+| 25/09/2026 | Starbucks | 4,33 | Plaid Credit Card | FOOD_AND_DRINK | Pendente |
+| 24/09/2026 | Uber 072515 SF\*\*POOL\*\* | 6,33 | Plaid Checking | TRANSPORTATION | Confirmada |
+| 21/09/2026 | Tectra Inc | 500,00 | Plaid Credit Card | FOOD_AND_DRINK | Confirmada |
+| 20/09/2026 | AUTOMATIC PAYMENT - THANK | 2.078,50 | Plaid Credit Card | LOAN_PAYMENTS | Confirmada |
+| 20/09/2026 | KFC | 500,00 | Plaid Credit Card | FOOD_AND_DRINK | Confirmada |
+| 20/09/2026 | Madison Bicycle Shop | 500,00 | Plaid Credit Card | GENERAL_MERCHANDISE | Confirmada |
+| 15/09/2026 | Uber 063015 SF\*\*POOL\*\* | 5,40 | Plaid Checking | TRANSPORTATION | Confirmada |
+| 14/09/2026 | United Airlines | 500,00 | Plaid Credit Card | TRAVEL | Confirmada |
+| 12/09/2026 | McDonald's | 12,00 | Plaid Credit Card | FOOD_AND_DRINK | Confirmada |
+| 12/09/2026 | Starbucks | 4,33 | Plaid Credit Card | FOOD_AND_DRINK | Confirmada |
+| 11/09/2026 | SparkFun | 89,40 | Plaid Credit Card | GENERAL_MERCHANDISE | Confirmada |
+| 10/09/2026 | INTRST PYMNT | -4,22 | Plaid Saving | INCOME | Confirmada |
+| 09/09/2026 | Touchstone Climbing | 78,50 | Plaid Business Credit Card | PERSONAL_CARE | Confirmada |
+| 08/09/2026 | CREDIT CARD 3333 PAYMENT \*// | 25,00 | Plaid Checking | LOAN_PAYMENTS | Confirmada |
+| 05/09/2026 | ACH Electronic CreditGUSTO PAY 123456 | -5.850,00 | Plaid Checking | INCOME | Confirmada |
+| 04/09/2026 | Uber 072515 SF\*\*POOL\*\* | 6,33 | Plaid Checking | TRANSPORTATION | Confirmada |
+| 03/09/2026 | CD DEPOSIT .INITIAL. | 1.000,00 | Plaid Saving | TRANSFER_OUT | Confirmada |
+
+Não apresente a amostra como o conjunto completo consultado no ensaio (a consulta real teve 14 contas e 48 transações). Se houver respostas simuladas, deixe isso claro.
+
+**Os números devem ser calculados por código sobre esta amostra, nunca gerados por um modelo de linguagem.** Valores esperados, para conferência:
+
+| Pergunta | Resposta esperada |
+| --- | --- |
+| Consultar meus saldos | Dinheiro disponível US$ 300,00 · Dívida nos cartões US$ 5.430,00 · Limite disponível US$ 4.980,00 |
+| Quanto gastei com alimentação? | US$ 1.016,33 em 4 transações confirmadas; fora do total: 1 pendente somando US$ 4,33 |
+| Resumir minhas movimentações | Consumo US$ 2.202,29 · Dívidas pagas e transferências US$ 3.103,50 · Entradas US$ 5.854,22 · Pendentes 1 (US$ 4,33) |
+| Quanto gastei com Uber? | US$ 18,06 em 3 transações confirmadas |
+| Quanto gastei na última semana? | Consumo US$ 1.506,33 (19 a 25/09); fatura de US$ 2.078,50 mostrada à parte |
+
+## Melhoria escolhida: perguntas novas
+
+Responder combinações de **categoria, estabelecimento, período e conta**, por exemplo: "Quanto gastei com Uber?", "Transações do cartão nos últimos 7 dias", "Gastos por categoria na conta corrente", "Quanto gastei de 10/09 a 20/09?". Se o período pedido estiver fora da amostra, dizer isso sem inventar movimentações.
+
+Regras adicionais:
+- **Consumo ≠ saídas.** Pagamento de fatura/dívida (`LOAN_PAYMENTS`) e transferências (`TRANSFER_OUT`) aparecem separados do consumo: pagar a fatura só quita compras do cartão que já foram contadas, e somar os dois contaria o mesmo gasto duas vezes.
+- **Termo desconhecido.** Se a pessoa perguntar por algo que não existe nos dados (ex.: "Quanto gastei com mercado?"), dizer que não encontrou e listar as categorias e estabelecimentos válidos, em vez de responder outra pergunta.
+- **Concordância.** Escrever "1 transação confirmada" / "4 transações confirmadas", nunca "transação(ões)".
+- Pedidos de Pix, pagamento ou transferência são recusados com explicação; pedidos de conversão para reais também.
 
 ## Etapa 2: backend e integração (depois)
 
