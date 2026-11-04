@@ -22,17 +22,24 @@ Prints que comprovam cada etapa. Antes de salvar uma imagem aqui, confira que **
 | Arquivo | O que mostra |
 | --- | --- |
 | [pluggy-p01-p02.md](pluggy-p01-p02.md) | 4 endpoints do grupo Transaction (com o descontinuado marcado) e Item × conta × transação explicados, com fontes |
+| [ia-02-pluggy-1-endpoints.png](ia-02-pluggy-1-endpoints.png) | P01: tabela dos 4 endpoints |
+| [ia-02-pluggy-2-conceitos.png](ia-02-pluggy-2-conceitos.png) | P02: Pluggy, Item e a tabela Item × conta × transação |
+| [ia-02-pluggy-3-exemplo.png](ia-02-pluggy-3-exemplo.png) | P02: exemplo fictício e convenção de sinais |
 
 ## Plaid Sandbox (P05–P07)
 
 | Arquivo | O que mostra |
 | --- | --- |
 | [plaid-p07.md](plaid-p07.md) | Item criado pelo MCP no First Platypus Bank (`ins_109508`), 14 contas, 48/48 transações em 90 dias e três padrões de gasto |
+| [ia-03-plaid-1-resumo.png](ia-03-plaid-1-resumo.png) | Etapas P05–P07, instituição, período e paginação |
+| [ia-03-plaid-2-dinheiro.png](ia-03-plaid-2-dinheiro.png) | Contas de depósito (dinheiro) |
+| [ia-03-plaid-3-dividas.png](ia-03-plaid-3-dividas.png) | Investimentos, dívidas e limites |
+| [ia-03-plaid-4-transacoes.png](ia-03-plaid-4-transacoes.png) | Cinco transações mais recentes, sem pendentes |
+| [ia-03-plaid-5-padroes.png](ia-03-plaid-5-padroes.png) | Três padrões de gasto |
+| [ia-03-plaid-6-observacoes.png](ia-03-plaid-6-observacoes.png) | Transferências, entradas e relação com o app |
 
 ## Pendentes (a adicionar)
 
 | Arquivo sugerido | O que mostra |
 | --- | --- |
-| `ia-02-pluggy-item.png` | Resposta do P02 explicando Item, com links das fontes |
-| `ia-03-plaid-tabelas.png` | Contas, transações e três padrões de gasto da Plaid Sandbox (P07) |
 | `app-05-celular.png` | Conversa no celular |

@@ -140,9 +140,19 @@ Lista completa em **[docs/evidencias/](docs/evidencias/)**.
 
 O MCP listou os 4 endpoints do grupo Transaction e explicou Item × conta × transação com fontes: **[docs/evidencias/pluggy-p01-p02.md](docs/evidencias/pluggy-p01-p02.md)**.
 
+| P01 · endpoints | P02 · conceitos |
+| --- | --- |
+| ![4 endpoints do grupo Transaction](docs/evidencias/ia-02-pluggy-1-endpoints.png) | ![Item × conta × transação](docs/evidencias/ia-02-pluggy-2-conceitos.png) |
+
 ### Plaid Sandbox (P05–P07)
 
 O MCP `plaid` criou um Item no **First Platypus Bank** (`ins_109508`). A consulta de 90 dias leu **48/48 transações** com paginação, sem `PRODUCT_NOT_READY`. Contas separadas em dinheiro, dívidas e limites, as 5 transações mais recentes e três padrões de gasto estão em **[docs/evidencias/plaid-p07.md](docs/evidencias/plaid-p07.md)**.
+
+| Dívidas e limites | Padrões de gasto |
+| --- | --- |
+| ![Dívidas e limites separados do dinheiro](docs/evidencias/ia-03-plaid-3-dividas.png) | ![Três padrões de gasto](docs/evidencias/ia-03-plaid-5-padroes.png) |
+
+Demais telas (resumo, dinheiro, transações, observações) em [docs/evidencias/](docs/evidencias/).
 
 ### Conferência
 
