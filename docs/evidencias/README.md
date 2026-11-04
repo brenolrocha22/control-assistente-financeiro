@@ -11,6 +11,12 @@ Prints que comprovam cada etapa. Antes de salvar uma imagem aqui, confira que **
 | [app-03-tabela-transacoes.png](app-03-tabela-transacoes.png) | 5 transações mais recentes, com a pendente identificada e a nota sobre o sinal da Plaid |
 | [app-04-gasto-alimentacao.png](app-04-gasto-alimentacao.png) | "Quanto gastei com alimentação?": US$ 1.016,33 em 4 confirmadas, com a pendente fora do total |
 
+## Servidores MCP
+
+| Arquivo | O que mostra |
+| --- | --- |
+| [ia-01-mcp-servidores.png](ia-01-mcp-servidores.png) | `/mcp` no Claude Code (VS Code) com `plaid` e `pluggy` conectados, no escopo do projeto. Ao lado, o `.mcp.json` só com `${PLAID_CLIENT_ID}` e `${PLAID_SECRET}`, sem chaves |
+
 ## Pluggy Docs (P01–P02)
 
 | Arquivo | O que mostra |
@@ -27,7 +33,6 @@ Prints que comprovam cada etapa. Antes de salvar uma imagem aqui, confira que **
 
 | Arquivo sugerido | O que mostra |
 | --- | --- |
-| `ia-01-mcp-servidores.png` | `/mcp` listando `pluggy` e `plaid` ativos |
 | `ia-02-pluggy-item.png` | Resposta do P02 explicando Item, com links das fontes |
 | `ia-03-plaid-tabelas.png` | Contas, transações e três padrões de gasto da Plaid Sandbox (P07) |
 | `app-05-celular.png` | Conversa no celular |

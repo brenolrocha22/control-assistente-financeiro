@@ -132,6 +132,14 @@ Lista completa em **[docs/evidencias/](docs/evidencias/)**.
 | --- | --- |
 | ![Tabela das 4 contas](docs/evidencias/app-02-ultimas-transacoes.png) | ![5 transações mais recentes com situação](docs/evidencias/app-03-tabela-transacoes.png) |
 
+### Servidores MCP conectados
+
+![/mcp com plaid e pluggy conectados; .mcp.json só com variáveis de ambiente](docs/evidencias/ia-01-mcp-servidores.png)
+
+### Pluggy Docs (P01–P02)
+
+O MCP listou os 4 endpoints do grupo Transaction e explicou Item × conta × transação com fontes: **[docs/evidencias/pluggy-p01-p02.md](docs/evidencias/pluggy-p01-p02.md)**.
+
 ### Plaid Sandbox (P05–P07)
 
 O MCP `plaid` criou um Item no **First Platypus Bank** (`ins_109508`). A consulta de 90 dias leu **48/48 transações** com paginação, sem `PRODUCT_NOT_READY`. Contas separadas em dinheiro, dívidas e limites, as 5 transações mais recentes e três padrões de gasto estão em **[docs/evidencias/plaid-p07.md](docs/evidencias/plaid-p07.md)**.
