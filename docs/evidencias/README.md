@@ -10,6 +10,9 @@ Prints que comprovam cada etapa. Antes de salvar uma imagem aqui, confira que **
 | [app-02-ultimas-transacoes.png](app-02-ultimas-transacoes.png) | Tabela das 4 contas e sugestões de continuação |
 | [app-03-tabela-transacoes.png](app-03-tabela-transacoes.png) | 5 transações mais recentes, com a pendente identificada e a nota sobre o sinal da Plaid |
 | [app-04-gasto-alimentacao.png](app-04-gasto-alimentacao.png) | "Quanto gastei com alimentação?": US$ 1.016,33 em 4 confirmadas, com a pendente fora do total |
+| [app-05-celular-1-pergunta.jpg](app-05-celular-1-pergunta.jpg) | App publicado no Android: saudação, sugestões e a pergunta enviada |
+| [app-05-celular-2-total.jpg](app-05-celular-2-total.jpg) | Celular: total de US$ 1.016,33, pendente de US$ 4,33 fora da soma, tabela em cartões |
+| [app-05-celular-3-cartoes.jpg](app-05-celular-3-cartoes.jpg) | Celular: restante das transações empilhadas em cartões |
 
 ## Servidores MCP
 
@@ -37,9 +40,3 @@ Prints que comprovam cada etapa. Antes de salvar uma imagem aqui, confira que **
 | [ia-03-plaid-4-transacoes.png](ia-03-plaid-4-transacoes.png) | Cinco transações mais recentes, sem pendentes |
 | [ia-03-plaid-5-padroes.png](ia-03-plaid-5-padroes.png) | Três padrões de gasto |
 | [ia-03-plaid-6-observacoes.png](ia-03-plaid-6-observacoes.png) | Transferências, entradas e relação com o app |
-
-## Pendentes (a adicionar)
-
-| Arquivo sugerido | O que mostra |
-| --- | --- |
-| `app-05-celular.png` | Conversa no celular |

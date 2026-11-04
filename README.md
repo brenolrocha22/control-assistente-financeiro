@@ -132,6 +132,12 @@ Lista completa em **[docs/evidencias/](docs/evidencias/)**.
 | --- | --- |
 | ![Tabela das 4 contas](docs/evidencias/app-02-ultimas-transacoes.png) | ![5 transações mais recentes com situação](docs/evidencias/app-03-tabela-transacoes.png) |
 
+### No celular (app publicado, Android)
+
+| Pergunta | Total e pendente | Tabela em cartões |
+| --- | --- | --- |
+| <img src="docs/evidencias/app-05-celular-1-pergunta.jpg" width="220" alt="Saudação, sugestões e pergunta no celular"> | <img src="docs/evidencias/app-05-celular-2-total.jpg" width="220" alt="US$ 1.016,33 com a pendente fora do total"> | <img src="docs/evidencias/app-05-celular-3-cartoes.jpg" width="220" alt="Transações empilhadas em cartões"> |
+
 ### Servidores MCP conectados
 
 ![/mcp com plaid e pluggy conectados; .mcp.json só com variáveis de ambiente](docs/evidencias/ia-01-mcp-servidores.png)
