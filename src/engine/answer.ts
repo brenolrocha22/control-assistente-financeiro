@@ -301,7 +301,9 @@ function listTransactions(ds: Dataset, f: Filters): Answer {
   };
 }
 
-function spendIn(ds: Dataset, f: Filters, match: (t: Transaction) => boolean, label: string): Answer {
+const VERB: Record<string, string> = { LOAN_PAYMENTS: "pagou", TRANSFER_OUT: "transferiu" };
+
+function spendIn(ds: Dataset, f: Filters, match: (t: Transaction) => boolean, label: string, verb = "gastou"): Answer {
   const scoped = applyFilters(ds.transactions, f).filter(match);
   if (!scoped.length) return emptyResult(ds, f, `registros de ${label}`);
   const confirmedOut = scoped.filter((t) => !t.pending && t.amount > 0);
@@ -312,7 +314,7 @@ function spendIn(ds: Dataset, f: Filters, match: (t: Transaction) => boolean, la
   const received = money(Math.abs(sum(confirmedIn)));
   const blocks: Block[] = [];
   if (confirmedOut.length) {
-    blocks.push({ kind: "text", text: `Você gastou ${money(total)} com ${label} em ${count(confirmedOut.length, "transação confirmada", "transações confirmadas")}.` });
+    blocks.push({ kind: "text", text: `Você ${verb} ${money(total)} ${verb === "gastou" ? "com" : "em"} ${label} em ${count(confirmedOut.length, "transação confirmada", "transações confirmadas")}.` });
     if (confirmedIn.length) blocks.push({ kind: "text", text: `Também houve ${received} de entradas nesse grupo.` });
   } else if (confirmedIn.length) {
     blocks.push({ kind: "text", text: `Você recebeu ${received} em ${count(confirmedIn.length, "entrada confirmada", "entradas confirmadas")} de ${label}.` });
@@ -325,35 +327,76 @@ function spendIn(ds: Dataset, f: Filters, match: (t: Transaction) => boolean, la
   return { intent: "spend", blocks };
 }
 
+/** Saídas que movem dinheiro mas não são gasto novo (somá-las ao consumo contaria a mesma compra duas vezes). */
+const NOT_CONSUMPTION = new Set(["LOAN_PAYMENTS", "TRANSFER_OUT"]);
+
 function summary(ds: Dataset, f: Filters): Answer {
   const scoped = applyFilters(ds.transactions, f);
   if (!scoped.length) return emptyResult(ds, f, "movimentações");
   const confirmed = scoped.filter((t) => !t.pending);
   const pending = scoped.filter((t) => t.pending);
-  const outflow = round2(confirmed.filter((t) => t.amount > 0).reduce((s, t) => s + t.amount, 0));
+  const outflows = confirmed.filter((t) => t.amount > 0);
+  const consumption = round2(outflows.filter((t) => !NOT_CONSUMPTION.has(t.category)).reduce((s, t) => s + t.amount, 0));
+  const moved = round2(outflows.filter((t) => NOT_CONSUMPTION.has(t.category)).reduce((s, t) => s + t.amount, 0));
   const inflow = round2(confirmed.filter((t) => t.amount < 0).reduce((s, t) => s - t.amount, 0));
 
   const byCat = new Map<string, number>();
-  for (const t of confirmed) if (t.amount > 0) byCat.set(t.category, round2((byCat.get(t.category) ?? 0) + t.amount));
+  for (const t of outflows) if (!NOT_CONSUMPTION.has(t.category)) byCat.set(t.category, round2((byCat.get(t.category) ?? 0) + t.amount));
   const bars = [...byCat.entries()].sort((a, b) => b[1] - a[1]).map(([code, v]) => ({ label: categoryLabel(code), value: v, display: money(v) }));
 
   const top = bars[0];
-  const blocks: Block[] = [
-    {
-      kind: "cards",
-      items: [
-        { label: "Saídas confirmadas", value: money(outflow), tone: "debt" },
-        { label: "Entradas confirmadas", value: money(inflow), tone: "good" },
-        { label: "Pendentes (fora dos totais)", value: pending.length ? `${pending.length} · ${money(Math.abs(sum(pending)))}` : "Nenhuma", tone: "limit" },
-      ],
-    },
-    { kind: "bars", items: bars, caption: "Saídas confirmadas por categoria" },
+  const cards: Extract<Block, { kind: "cards" }>["items"] = [
+    { label: "Consumo confirmado", value: money(consumption), hint: "Compras e serviços; sem dívidas pagas nem transferências", tone: "debt" },
   ];
-  if (top) blocks.push({ kind: "text", text: `A maior saída foi em ${top.label} (${top.display}).` });
-  if (byCat.has("LOAN_PAYMENTS") || byCat.has("TRANSFER_OUT"))
-    blocks.push({ kind: "text", text: "Pagamentos de dívidas e transferências entram nas saídas, mas não são consumo: podem ser só dinheiro mudando de lugar." });
+  if (moved) cards.push({ label: "Dívidas pagas e transferências", value: money(moved), hint: "Dinheiro mudando de lugar, não é gasto novo" });
+  cards.push(
+    { label: "Entradas confirmadas", value: money(inflow), tone: "good" },
+    { label: "Pendentes (fora dos totais)", value: pending.length ? `${pending.length} · ${money(Math.abs(sum(pending)))}` : "Nenhuma", tone: "limit" },
+  );
+
+  const blocks: Block[] = [{ kind: "cards", items: cards }];
+  if (bars.length) blocks.push({ kind: "bars", items: bars, caption: "Consumo confirmado por categoria" });
+  if (top) blocks.push({ kind: "text", text: `O maior consumo foi em ${top.label} (${top.display}).` });
+  if (moved) {
+    const paidDebt = outflows.some((t) => t.category === "LOAN_PAYMENTS");
+    blocks.push({
+      kind: "text",
+      text:
+        `Além do consumo, saíram ${money(moved)} em pagamentos de dívidas e transferências.` +
+        (paidDebt
+          ? " Pagar a fatura só quita compras do cartão que já estão no consumo: somar os dois contaria o mesmo gasto duas vezes."
+          : " Transferir para outra conta ou aplicação não é gasto: o dinheiro continua seu."),
+    });
+  }
   blocks.push({ kind: "note", text: `${scopeText(ds, f)} · ${count(scoped.length, "registro", "registros")} (${count(confirmed.length, "confirmado", "confirmados")}, ${count(pending.length, "pendente", "pendentes")}). ${SIGN_NOTE}` });
   return { intent: "summary", blocks };
+}
+
+// Palavras que podem vir depois de "gastei com/no/na/em" sem serem estabelecimento ou categoria.
+const NOT_A_TERM = new Set([
+  "o", "a", "os", "as", "meu", "minha", "meus", "minhas", "um", "uma",
+  "hoje", "ontem", "ultima", "ultimas", "ultimo", "ultimos", "esta", "essa", "este", "esse", "semana", "mes", "periodo", "total", "geral",
+  "cartao", "cartoes", "conta", "contas", "corrente", "poupanca", "credito", "empresarial", "categoria", "categorias",
+  ...MONTHS,
+]);
+
+/** Termo citado em "gastei com X" que não aparece nos dados (nem como categoria nem como estabelecimento). */
+function unknownSpendTerm(q: string): string | undefined {
+  const m = q.match(/\bgast\w* (?:com|no|na|nos|nas|em) (?:(?:o|a|os|as|meu|minha|meus|minhas) )?([a-z0-9]+)/);
+  return m && !NOT_A_TERM.has(m[1]) && !/^\d+$/.test(m[1]) && m[1] !== "tudo" ? m[1] : undefined;
+}
+
+function unknownTerm(ds: Dataset, term: string): Answer {
+  const cats = [...new Set(ds.transactions.filter((t) => t.amount > 0 && !NOT_CONSUMPTION.has(t.category)).map((t) => categoryLabel(t.category).toLowerCase()))];
+  const merchants = [...new Set(ds.transactions.filter((t) => t.amount > 0 && !NOT_CONSUMPTION.has(t.category)).map((t) => t.description.split(" ")[0]))];
+  return {
+    intent: "unknown_term",
+    blocks: [
+      { kind: "text", text: `Não encontrei “${term}” nos dados: não há categoria nem estabelecimento com esse nome, então não vou chutar um valor.` },
+      { kind: "note", text: `Categorias com gastos: ${cats.join(", ")}. Estabelecimentos: ${merchants.join(", ")}.` },
+      { kind: "suggestions", items: ["Quanto gastei com alimentação?", "Quanto gastei com Uber?", "Resumir minhas movimentações"] },
+    ],
+  };
 }
 
 function unsupported(): Answer {
@@ -390,8 +433,11 @@ export function answer(question: string, ds: Dataset): Answer {
 
   const wantsSpend = /gast|quanto|soma|total/.test(q);
   for (const [code, re] of CATEGORY_KEYWORDS) {
-    if (re.test(q) && (wantsSpend || code !== "INCOME")) return spendIn(ds, filters, (t) => t.category === code, categoryLabel(code).toLowerCase());
+    if (re.test(q) && (wantsSpend || code !== "INCOME")) return spendIn(ds, filters, (t) => t.category === code, categoryLabel(code).toLowerCase(), VERB[code]);
   }
+
+  const term = unknownSpendTerm(q);
+  if (term) return unknownTerm(ds, term);
 
   if (/resum|categoria|onde (eu )?gast|padr|analis|visao geral|entradas e saidas|gastei|gastos/.test(q)) return summary(ds, filters);
   if (/transac|movimenta|extrato|ultimas|recentes|lancamento|compras/.test(q)) return listTransactions(ds, filters);

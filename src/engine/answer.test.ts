@@ -38,11 +38,28 @@ describe("cálculos coerentes com a amostra", () => {
     expect(all).not.toMatch(/\((s|ões|es)\)/);
   });
 
-  it("resume entradas e saídas com o sinal da Plaid", () => {
+  it("resume separando consumo de dívidas pagas e transferências", () => {
     const a = answer("Resumir minhas movimentações", ds);
     const cards = a.blocks.find((b) => b.kind === "cards");
-    expect(cards && cards.kind === "cards" && cards.items[0].value).toBe("US$ 5.305,79");
-    expect(cards && cards.kind === "cards" && cards.items[1].value).toBe("US$ 5.854,22");
+    // Saídas confirmadas: 5.305,79 = consumo 2.202,29 + fatura/dívidas 2.103,50 + depósito em CD 1.000,00
+    expect(cards && cards.kind === "cards" && cards.items.map((i) => i.value)).toEqual([
+      "US$ 2.202,29",
+      "US$ 3.103,50",
+      "US$ 5.854,22",
+      "1 · US$ 4,33",
+    ]);
+  });
+
+  it("não conta o pagamento da fatura como gasto da semana", () => {
+    const a = answer("Quanto gastei na última semana?", ds);
+    const cards = a.blocks.find((b) => b.kind === "cards");
+    // 19 a 25/09: Uber 6,33 + Tectra 500 + KFC 500 + Madison 500; a fatura de 2.078,50 fica separada
+    expect(cards && cards.kind === "cards" && cards.items[0].value).toBe("US$ 1.506,33");
+    expect(cards && cards.kind === "cards" && cards.items[1].value).toBe("US$ 2.078,50");
+  });
+
+  it("usa o verbo certo para dívidas pagas", () => {
+    expect(text(answer("Quanto paguei de fatura?", ds))).toContain("Você pagou US$ 2.103,50 em pagamentos");
   });
 
   it("mostra as 5 mais recentes", () => {
@@ -72,6 +89,17 @@ describe("limites honestos", () => {
   it("não inventa dados fora do período", () => {
     expect(answer("Transações de março", ds).intent).toBe("empty");
   });
+  it("avisa quando o termo não existe nos dados em vez de responder outra coisa", () => {
+    const a = answer("Quanto gastei com mercado?", ds);
+    expect(a.intent).toBe("unknown_term");
+    expect(text(a)).toContain("Não encontrei “mercado”");
+  });
+  it.each(["Quanto gastei na última semana?", "Quanto gastei com o cartão?", "Quanto gastei em setembro?", "Quanto gastei com café?", "Quanto gastei com KFC?"])(
+    "não confunde período, conta, categoria ou estabelecimento com termo desconhecido: %s",
+    (q) => {
+      expect(answer(q, ds).intent).not.toBe("unknown_term");
+    },
+  );
   it("pergunta sem suporte recebe explicação", () => {
     expect(answer("Qual a previsão do tempo?", ds).intent).toBe("unsupported");
   });

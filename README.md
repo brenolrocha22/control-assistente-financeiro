@@ -20,7 +20,8 @@
 | "Consultar meus saldos" | Separa **dinheiro disponível**, **dívida nos cartões** e **limite**, sem somar tudo como patrimônio |
 | "Ver minhas últimas transações" | Mostra as 5 mais recentes com situação (confirmada/pendente) |
 | "Quanto gastei com alimentação?" | Soma só as saídas **confirmadas** da categoria e mostra as pendentes à parte |
-| "Resumir minhas movimentações" | Entradas × saídas, gráfico por categoria e alerta de que transferência ou pagamento de dívida não é consumo |
+| "Resumir minhas movimentações" | **Consumo** separado de **dívidas pagas e transferências** (para não contar a compra no cartão e o pagamento da fatura duas vezes), entradas, pendentes e gráfico de consumo por categoria |
+| "Quanto gastei com mercado?" (termo que não existe nos dados) | Avisa que não encontrou e lista as categorias e estabelecimentos válidos, em vez de responder outra coisa |
 | "Quanto gastei com Uber?" · "Transações do cartão nos últimos 7 dias" · "Gastos por categoria na conta corrente" | Filtros por **estabelecimento, conta e período** (a melhoria escolhida, ver seção 4) |
 | "Faça um Pix…" · "Quanto é isso em reais?" | Recusa com explicação: o app é só leitura e não inventa cotação |
 
@@ -108,7 +109,7 @@ Se o período pedido estiver fora da amostra, a resposta diz isso e não inventa
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm test         # 16 testes do motor de respostas
+npm test         # 24 testes do motor de respostas
 npm run build    # gera dist/ (site estático)
 ```
 
