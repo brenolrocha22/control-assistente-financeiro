@@ -22,7 +22,7 @@ export const sampleDataset: Dataset = {
   transactions: [
     { id: "t17", accountId: "cc", date: "2026-09-25", description: "Starbucks", amount: 4.33, currency: "USD", category: "FOOD_AND_DRINK", pending: true },
     { id: "t01", accountId: "chk", date: "2026-09-24", description: "Uber 072515 SF**POOL**", amount: 6.33, currency: "USD", category: "TRANSPORTATION", pending: false },
-    { id: "t02", accountId: "cc", date: "2026-09-21", description: "Tectra Inc", amount: 500, currency: "USD", category: "FOOD_AND_DRINK", pending: false },
+    { id: "t02", accountId: "cc", date: "2026-09-21", description: "Tectra Inc", amount: 500, currency: "USD", category: "RENT_AND_UTILITIES", pending: false },
     { id: "t03", accountId: "cc", date: "2026-09-20", description: "AUTOMATIC PAYMENT - THANK", amount: 2078.5, currency: "USD", category: "LOAN_PAYMENTS", pending: false },
     { id: "t04", accountId: "cc", date: "2026-09-20", description: "KFC", amount: 500, currency: "USD", category: "FOOD_AND_DRINK", pending: false },
     { id: "t05", accountId: "cc", date: "2026-09-20", description: "Madison Bicycle Shop", amount: 500, currency: "USD", category: "GENERAL_MERCHANDISE", pending: false },

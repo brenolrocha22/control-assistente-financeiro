@@ -44,7 +44,7 @@ Preservar USD quando essa for a moeda recebida, no formato "US$ 110,00". Não co
 
 ## Etapa 1: frontend demonstrável
 
-Entregar primeiro uma interface funcional com dados locais fictícios, sem pedir credenciais. Identificar o modo de demonstração e a data de referência. Usar uma amostra pequena e coerente, com os cálculos feitos sobre essa mesma amostra.
+Entregar primeiro uma interface funcional com dados locais fictícios, sem pedir credenciais. **Nesta etapa não há integração com a Plaid: não peça `PLAID_CLIENT_ID`, `PLAID_SECRET` nem `access_token`, não crie conexão com Supabase/Edge Functions para a Plaid e não chame `sandbox.plaid.com`.** Todos os dados vêm da amostra abaixo, embutida no código. Identificar o modo de demonstração e a data de referência. Usar uma amostra pequena e coerente, com os cálculos feitos sobre essa mesma amostra.
 
 | Conta de exemplo | Saldo USD | Disponível USD |
 | --- | --- | --- |
@@ -59,7 +59,7 @@ Data de referência da amostra: **25/09/2026** ("hoje", "ontem" e "últimos N di
 | --- | --- | ---: | --- | --- | --- |
 | 25/09/2026 | Starbucks | 4,33 | Plaid Credit Card | FOOD_AND_DRINK | Pendente |
 | 24/09/2026 | Uber 072515 SF\*\*POOL\*\* | 6,33 | Plaid Checking | TRANSPORTATION | Confirmada |
-| 21/09/2026 | Tectra Inc | 500,00 | Plaid Credit Card | FOOD_AND_DRINK | Confirmada |
+| 21/09/2026 | Tectra Inc | 500,00 | Plaid Credit Card | RENT_AND_UTILITIES | Confirmada |
 | 20/09/2026 | AUTOMATIC PAYMENT - THANK | 2.078,50 | Plaid Credit Card | LOAN_PAYMENTS | Confirmada |
 | 20/09/2026 | KFC | 500,00 | Plaid Credit Card | FOOD_AND_DRINK | Confirmada |
 | 20/09/2026 | Madison Bicycle Shop | 500,00 | Plaid Credit Card | GENERAL_MERCHANDISE | Confirmada |
@@ -82,7 +82,7 @@ Não apresente a amostra como o conjunto completo consultado no ensaio (a consul
 | Pergunta | Resposta esperada |
 | --- | --- |
 | Consultar meus saldos | Dinheiro disponível US$ 300,00 · Dívida nos cartões US$ 5.430,00 · Limite disponível US$ 4.980,00 |
-| Quanto gastei com alimentação? | US$ 1.016,33 em 4 transações confirmadas; fora do total: 1 pendente somando US$ 4,33 |
+| Quanto gastei com alimentação? | US$ 516,33 em 3 transações confirmadas; fora do total: 1 pendente somando US$ 4,33 |
 | Resumir minhas movimentações | Consumo US$ 2.202,29 · Dívidas pagas e transferências US$ 3.103,50 · Entradas US$ 5.854,22 · Pendentes 1 (US$ 4,33) |
 | Quanto gastei com Uber? | US$ 18,06 em 3 transações confirmadas |
 | Quanto gastei na última semana? | Consumo US$ 1.506,33 (19 a 25/09); fatura de US$ 2.078,50 mostrada à parte |

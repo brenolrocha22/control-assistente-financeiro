@@ -127,7 +127,7 @@ Lista completa em **[docs/evidencias/](docs/evidencias/)**.
 
 | Contas | Gasto com alimentação |
 | --- | --- |
-| ![Saudação, sugestões e lista de contas](docs/evidencias/app-01-contas.png) | ![US$ 1.016,33 em 4 confirmadas, pendente fora do total](docs/evidencias/app-04-gasto-alimentacao.png) |
+| ![Saudação, sugestões e lista de contas](docs/evidencias/app-01-contas.png) | ![US$ 516,33 em 3 confirmadas, pendente fora do total](docs/evidencias/app-04-gasto-alimentacao.png) |
 
 | Lista de contas | Últimas transações |
 | --- | --- |
@@ -137,7 +137,11 @@ Lista completa em **[docs/evidencias/](docs/evidencias/)**.
 
 | Pergunta | Total e pendente | Tabela em cartões |
 | --- | --- | --- |
-| <img src="docs/evidencias/app-05-celular-1-pergunta.jpg" width="220" alt="Saudação, sugestões e pergunta no celular"> | <img src="docs/evidencias/app-05-celular-2-total.jpg" width="220" alt="US$ 1.016,33 com a pendente fora do total"> | <img src="docs/evidencias/app-05-celular-3-cartoes.jpg" width="220" alt="Transações empilhadas em cartões"> |
+| <img src="docs/evidencias/app-05-celular-1-pergunta.jpg" width="220" alt="Saudação, sugestões e pergunta no celular"> | <img src="docs/evidencias/app-05-celular-2-total.jpg" width="220" alt="Pendente fora do total (print anterior à correção da Tectra)"> | <img src="docs/evidencias/app-05-celular-3-cartoes.jpg" width="220" alt="Transações empilhadas em cartões"> |
+
+| Consumo separado da fatura paga | Termo que não existe nos dados |
+| --- | --- |
+| ![Consumo US$ 2.202,29 separado de dívidas pagas e transferências](docs/evidencias/app-06-resumo-consumo.png) | ![Aviso de termo desconhecido com categorias válidas](docs/evidencias/app-07-termo-desconhecido.png) |
 
 ### Servidores MCP conectados
 
@@ -163,7 +167,7 @@ Demais telas (resumo, dinheiro, transações, observações) em [docs/evidencias
 
 ### Conferência
 
-O total de alimentação confere com a amostra: Tectra Inc (500,00) + KFC (500,00) + McDonald's (12,00) + Starbucks (4,33) = **US$ 1.016,33**. O Starbucks de 25/09 está pendente e aparece fora da soma.
+O total de alimentação confere com a amostra: KFC (500,00) + McDonald's (12,00) + Starbucks (4,33) = **US$ 516,33**. A Tectra Inc (US$ 500,00) é **aluguel e contas**, como na consulta real da Plaid (P07), e não entra em alimentação. O Starbucks de 25/09 está pendente e aparece fora da soma.
 
 ---
 

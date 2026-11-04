@@ -120,6 +120,7 @@ const CATEGORY_KEYWORDS: [string, RegExp][] = [
   ["GENERAL_MERCHANDISE", /mercadoria|loja|bicicleta|eletronic/],
   ["PERSONAL_CARE", /cuidado|academia|escalada|bem-estar|bem estar/],
   ["LOAN_PAYMENTS", /emprestimo|fatura|pagamento(s)? de (divida|cartao)|dividas pagas/],
+  ["RENT_AND_UTILITIES", /aluguel|moradia|condominio|energia eletrica|conta de luz/],
   ["TRANSFER_OUT", /transferencia/],
   ["INCOME", /renda|salario|entrada|juros|receb/],
 ];

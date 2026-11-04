@@ -26,8 +26,8 @@ describe("cálculos coerentes com a amostra", () => {
 
   it("soma alimentação só com confirmadas e deixa a pendente fora", () => {
     const t = text(answer("Quanto gastei com alimentação?", ds));
-    expect(t).toContain("US$ 1.016,33");
-    expect(t).toContain("4 transações confirmadas");
+    expect(t).toContain("US$ 516,33");
+    expect(t).toContain("3 transações confirmadas");
     expect(t).toContain("1 pendente somando US$ 4,33");
   });
 
