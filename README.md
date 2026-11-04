@@ -84,6 +84,7 @@ A especificação foi enviada primeiro no **modo chat**, para o Lovable tirar d�
 
 - **Só a Etapa 1:** o Lovable pediu as chaves da Plaid para avançar à Etapa 2, e elas **não foram fornecidas**. O app roda só com a amostra local, mostra "Modo local, sem conexão bancária" e se declara somente leitura.
 - **Mesmos números da versão do repositório:** dinheiro disponível US$ 300,00, dívida nos cartões US$ 5.430,00 e limite US$ 4.980,00.
+- **Diferença conhecida:** a versão do Lovable foi gerada antes de uma correção na amostra e ainda classifica a **Tectra Inc** como alimentação. Por isso, nela, "Quanto gastei com alimentação?" dá **US$ 1.016,33**. Na versão do repositório, a Tectra é **aluguel e contas**, como na consulta real da Plaid (P07), e o resultado é **US$ 516,33**. A correção no Lovable ficou pendente porque os créditos do plano gratuito acabaram. O pedido de ajuste já está na [especificação](docs/lovable-spec.md).
 - **Respostas:** a IA do Lovable interpreta a pergunta, e os números são calculados por código, como a especificação exige.
 
 | Início | Saldos | Últimas transações |
